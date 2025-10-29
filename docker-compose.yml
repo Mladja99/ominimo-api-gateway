@@ -23,8 +23,6 @@ services:
     model-a-api:
         build:
             context: ./endpoints/model_a_endpoint
-            ssh:
-                - default
             args:
                 UID: ${UID}
                 GID: ${GID}
@@ -49,8 +47,6 @@ services:
     model-b-api:
         build:
             context: ./endpoints/model_b_endpoint
-            ssh:
-                - default
             args:
                 UID: ${UID}
                 GID: ${GID}
@@ -75,8 +71,6 @@ services:
     model-c-api:
         build:
             context: ./endpoints/model_c_endpoint
-            ssh:
-                - default
             args:
                 UID: ${UID}
                 GID: ${GID}

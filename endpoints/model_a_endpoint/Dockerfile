@@ -11,10 +11,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends git openssh-client curl && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p -m 0755 /etc/ssh && \
-    ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> /etc/ssh/ssh_known_hosts
-
-# Poetry
+# Install Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 - --version ${POETRY_VERSION} && \
     ln -s ${POETRY_HOME}/bin/poetry /usr/local/bin/poetry
 
@@ -25,12 +22,12 @@ COPY pyproject.toml ./
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
 # Install deps
-RUN --mount=type=ssh poetry install --no-interaction --no-ansi --only main
+RUN poetry install --no-interaction --no-ansi --only main
 
 # App code
 COPY main.py ./main.py
 
-# Create log dir
+# Create logs directory
 RUN mkdir -p /app/logs
 
 # Expose and healthcheck

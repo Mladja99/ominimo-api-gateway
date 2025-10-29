@@ -10,7 +10,7 @@ python = "^3.11"
 fastapi = "0.104.1"
 uvicorn = {version = "0.24.0", extras = ["standard"]}
 pydantic = "2.7.0"
-insurance-model-c = { git = "ssh://git@github.com/Mladja99/mock_models.git", subdirectory = "models/model_c", tag = "v0.1.0" }
+insurance-model-c = { git = "https://github.com/Mladja99/mock_models.git", subdirectory = "models/model_c", tag = "v0.1.0" }
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"

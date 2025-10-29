@@ -151,8 +151,7 @@ chi2=0.04 df=2 suspicious=False
 ├── endpoints/
 │   ├── model_a_endpoint/
 │   ├── model_b_endpoint/
-│   ├── model_c_endpoint/
-│   └── model_d_endpoint/
+│   └── model_c_endpoint/
 ├── tests/
 │   ├── sample_payloads.json
 │   ├── test_gateway.py
