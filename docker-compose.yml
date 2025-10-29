@@ -1,0 +1,108 @@
+services:
+    gateway:
+        build:
+            context: .                # repo root so /app/gateway is present
+            dockerfile: gateway/Dockerfile
+        ports:
+            - "8000:8000"
+        environment:
+            - MODELS_CONFIG_PATH=/app/config/models.yaml
+            - LOG_LEVEL=INFO
+            - GATEWAY_TIMEOUT=10
+        volumes:
+            - ./gateway/config:/app/config:ro
+            - ./gateway/logs:/app/logs
+        depends_on:
+            - model-a-api
+            - model-b-api
+            - model-c-api
+        networks:
+            - pricing-network
+        restart: unless-stopped
+
+    model-a-api:
+        build:
+            context: ./endpoints/model_a_endpoint
+            ssh:
+                - default
+            args:
+                UID: ${UID}
+                GID: ${GID}
+        expose:
+            - "8001"
+        environment:
+            - MODEL_NAME=model_a
+            - LOG_LEVEL=INFO
+            - UMASK=002
+        healthcheck: # ensure it's really up
+            test: [ "CMD", "curl", "-f", "http://localhost:8001/health" ]
+            interval: 30s
+            timeout: 10s
+            start_period: 20s
+            retries: 3
+        volumes:
+            - model_a_logs:/app/logs
+        networks:
+            - pricing-network
+        restart: unless-stopped
+
+    model-b-api:
+        build:
+            context: ./endpoints/model_b_endpoint
+            ssh:
+                - default
+            args:
+                UID: ${UID}
+                GID: ${GID}
+        expose:
+            - "8002"
+        environment:
+            - MODEL_NAME=model_b
+            - LOG_LEVEL=INFO
+            - UMASK=002
+        healthcheck: # ensure it's really up
+            test: [ "CMD", "curl", "-f", "http://localhost:8002/health" ]
+            interval: 30s
+            timeout: 10s
+            start_period: 20s
+            retries: 3
+        volumes:
+            - model_b_logs:/app/logs
+        networks:
+            - pricing-network
+        restart: unless-stopped
+
+    model-c-api:
+        build:
+            context: ./endpoints/model_c_endpoint
+            ssh:
+                - default
+            args:
+                UID: ${UID}
+                GID: ${GID}
+        expose:
+            - "8003"
+        environment:
+            - MODEL_NAME=model_c
+            - LOG_LEVEL=INFO
+            - UMASK=002
+        healthcheck: # ensure it's really up
+            test: [ "CMD", "curl", "-f", "http://localhost:8003/health" ]
+            interval: 30s
+            timeout: 10s
+            start_period: 20s
+            retries: 3
+        volumes:
+            - model_c_logs:/app/logs
+        networks:
+            - pricing-network
+        restart: unless-stopped
+
+networks:
+    pricing-network:
+        driver: bridge
+
+volumes:
+    model_a_logs:
+    model_b_logs:
+    model_c_logs:

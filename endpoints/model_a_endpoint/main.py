@@ -1,6 +1,5 @@
 import logging
 import os
-import random
 from datetime import date
 from typing import Any, Dict
 
@@ -8,21 +7,22 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
 try:
-    from model_b import ModelB
+    from model_a import ModelA
 
-    model = ModelB()
-except ImportError:
-    model = None
+    model = ModelA()
+except ImportError as e:
+    raise ImportError(f"Model package not available: {e}.")
 
 app = FastAPI(
-    title="Model B API",
+    title="Model A API",
     version="0.1.0",
-    description="Experience-focused car insurance pricing model",
+    description="Age-focused car insurance pricing model",
 )
+
 logging.basicConfig(
     level=os.getenv("LOG_LEVEL", "INFO"),
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("./logs/model-b.log"), logging.StreamHandler()],
+    handlers=[logging.FileHandler("./logs/model-a.log"), logging.StreamHandler()],
 )
 logger = logging.getLogger(__name__)
 
@@ -39,23 +39,13 @@ class PriceRequest(BaseModel):
 
 @app.post("/predict")
 async def predict(request: PriceRequest):
-    if model:
-        result = model.calculate_price(
-            birthdate=request.birthdate,
-            driver_license_date=request.driver_license_date,
-            car_model=request.car_model,
-            car_brand=request.car_brand,
-            postal_code=request.postal_code,
-        )
-    else:
-        # Fallback mock response
-        result = {
-            "model_name": "Model B",
-            "price": random.uniform(500, 1000),
-            "currency": "EUR",
-            "breakdown": {},
-            "metadata": {},
-        }
+    result = model.calculate_price(
+        birthdate=request.birthdate,
+        driver_license_date=request.driver_license_date,
+        car_model=request.car_model,
+        car_brand=request.car_brand,
+        postal_code=request.postal_code,
+    )
 
     logger.info(f"Prediction generated: {result['price']} EUR")
     return result
@@ -76,8 +66,8 @@ async def root() -> Dict[str, Any]:
     """
 
     return {
-        "service": "Model B API",
-        "description": "Experience-based car insurance pricing model",
+        "service": "Model A API",
+        "description": "Age-based car insurance pricing model",
         "version": "0.1.0",
         "model_available": model.name,
         "endpoints": {

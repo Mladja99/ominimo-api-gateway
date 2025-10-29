@@ -1,0 +1,47 @@
+# Model Configuration
+models:
+    model-a:
+        name: "Model A - Age Based Pricing"
+        version: "v0.1.0"
+        url: "http://model-a-api:8001"
+        enabled: true
+        description: "Focuses on driver age"
+
+    model-b:
+        name: "Model B - Experience Based Pricing"
+        version: "v0.1.0"
+        url: "http://model-b-api:8002"
+        enabled: true
+        description: "Focuses on driving experience"
+
+    model-c:
+        name: "Model C - Brand Based Pricing"
+        version: "v0.1.0"
+        url: "http://model-c-api:8003"
+        enabled: true
+        description: "Focuses on car brand"
+
+# Routing Rules Configuration
+routing_rules:
+    default: "ab_testing_percentage"
+    available_rules:
+        - birthdate_even_odd
+        - postal_code_region
+        - ab_testing_percentage
+
+# A/B Testing Configuration
+ab_testing:
+    enabled: true
+    experiment_id: "api_routing_2025_10"
+    unit_field: "postal_code"
+    distributions:
+        model-a: 0.33
+        model-b: 0.33
+        model-c: 0.34
+
+# Gateway Settings
+gateway:
+    timeout_seconds: 30
+    max_retries: 2
+    log_requests: true
+    log_responses: true

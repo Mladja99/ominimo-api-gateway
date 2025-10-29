@@ -6,7 +6,7 @@ ENV POETRY_HOME="/opt/poetry" \
     PYTHONUNBUFFERED=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=true
 
-# System deps (git, ssh for private repos, curl for healthcheck)
+# System deps
 RUN apt-get update && \
     apt-get install -y --no-install-recommends git openssh-client curl && \
     rm -rf /var/lib/apt/lists/*
@@ -14,32 +14,32 @@ RUN apt-get update && \
 RUN mkdir -p -m 0755 /etc/ssh && \
     ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> /etc/ssh/ssh_known_hosts
 
-# Install Poetry (no venv for poetry itself)
+# Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 - --version ${POETRY_VERSION} && \
     ln -s ${POETRY_HOME}/bin/poetry /usr/local/bin/poetry
 
 WORKDIR /app
 
-# Copy only the dependency descriptors first for better caching
+# Copy deps first for caching
 COPY pyproject.toml ./
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true
 
-# Install deps (no dev) using SSH agent forwarding
+# Install deps
 RUN --mount=type=ssh poetry install --no-interaction --no-ansi --only main
 
-# Now copy the rest of the app
+# App code
 COPY main.py ./main.py
 
-# Create logs directory
+# Create log dir
 RUN mkdir -p /app/logs
 
 # Expose and healthcheck
-EXPOSE 8002
+EXPOSE 8001
 HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
-  CMD curl -f http://localhost:8002/health || exit 1
+  CMD curl -f http://localhost:8001/health || exit 1
 
 # Activate the Poetry venv on PATH so uvicorn is found
 ENV PATH="/app/.venv/bin:${PATH}"
 
 # Run the app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
+CMD ["uvicorn","main:app","--host","0.0.0.0","--port","8001"]

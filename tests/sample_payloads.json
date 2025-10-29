@@ -1,0 +1,154 @@
+{
+  "even_birthdate_model_a": {
+    "birthdate": "1995-06-14",
+    "driver_license_date": "2015-08-20",
+    "car_model": "Golf",
+    "car_brand": "Volkswagen",
+    "postal_code": "1234AC"
+  },
+  "odd_birthdate_model_b": {
+    "birthdate": "1995-06-15",
+    "driver_license_date": "2015-08-20",
+    "car_model": "3 Series",
+    "car_brand": "BMW",
+    "postal_code": "5678BD"
+  },
+
+  "postal_region_a_north": {
+    "birthdate": "1990-01-10",
+    "driver_license_date": "2010-02-01",
+    "car_model": "Civic",
+    "car_brand": "Honda",
+    "postal_code": "1999ZZ"
+  },
+  "postal_region_b_central": {
+    "birthdate": "1988-07-22",
+    "driver_license_date": "2008-08-01",
+    "car_model": "Octavia",
+    "car_brand": "Skoda",
+    "postal_code": "4567YY"
+  },
+  "postal_region_c_south": {
+    "birthdate": "1985-05-03",
+    "driver_license_date": "2005-05-20",
+    "car_model": "Astra",
+    "car_brand": "Opel",
+    "postal_code": "7890XX"
+  },
+
+  "non_numeric_postal_mixed": {
+    "birthdate": "1992-04-12",
+    "driver_license_date": "2012-09-15",
+    "car_model": "Focus",
+    "car_brand": "Ford",
+    "postal_code": "AB12CD"
+  },
+
+  "ab_unit_variation_1": {
+    "birthdate": "1991-03-11",
+    "driver_license_date": "2011-04-01",
+    "car_model": "Yaris",
+    "car_brand": "Toyota",
+    "postal_code": "10001"
+  },
+  "ab_unit_variation_2": {
+    "birthdate": "1991-03-11",
+    "driver_license_date": "2011-04-01",
+    "car_model": "Yaris",
+    "car_brand": "Toyota",
+    "postal_code": "20002"
+  },
+  "ab_unit_variation_3": {
+    "birthdate": "1991-03-11",
+    "driver_license_date": "2011-04-01",
+    "car_model": "Yaris",
+    "car_brand": "Toyota",
+    "postal_code": "30003"
+  },
+  "ab_unit_variation_4": {
+    "birthdate": "1991-03-11",
+    "driver_license_date": "2011-04-01",
+    "car_model": "Yaris",
+    "car_brand": "Toyota",
+    "postal_code": "40004"
+  },
+  "ab_unit_variation_5": {
+    "birthdate": "1991-03-11",
+    "driver_license_date": "2011-04-01",
+    "car_model": "Yaris",
+    "car_brand": "Toyota",
+    "postal_code": "50005"
+  },
+  "ab_unit_variation_6": {
+    "birthdate": "1991-03-11",
+    "driver_license_date": "2011-04-01",
+    "car_model": "Yaris",
+    "car_brand": "Toyota",
+    "postal_code": "60006"
+  },
+  "ab_unit_variation_7": {
+    "birthdate": "1991-03-11",
+    "driver_license_date": "2011-04-01",
+    "car_model": "Yaris",
+    "car_brand": "Toyota",
+    "postal_code": "70007"
+  },
+  "ab_unit_variation_8": {
+    "birthdate": "1991-03-11",
+    "driver_license_date": "2011-04-01",
+    "car_model": "Yaris",
+    "car_brand": "Toyota",
+    "postal_code": "80008"
+  },
+  "ab_unit_variation_9": {
+    "birthdate": "1991-03-11",
+    "driver_license_date": "2011-04-01",
+    "car_model": "Yaris",
+    "car_brand": "Toyota",
+    "postal_code": "90009"
+  },
+
+  "boundary_age_exactly_18_ok": {
+    "birthdate": "2007-10-28",
+    "driver_license_date": "2025-01-01",
+    "car_model": "Clio",
+    "car_brand": "Renault",
+    "postal_code": "11000"
+  },
+
+  "invalid_underage_17y": {
+    "birthdate": "2009-06-15",
+    "driver_license_date": "2024-07-01",
+    "car_model": "Polo",
+    "car_brand": "Volkswagen",
+    "postal_code": "12000"
+  },
+  "invalid_future_birthdate": {
+    "birthdate": "2100-01-01",
+    "driver_license_date": "2020-01-01",
+    "car_model": "CX-5",
+    "car_brand": "Mazda",
+    "postal_code": "13000"
+  },
+  "invalid_future_license_date": {
+    "birthdate": "1980-02-02",
+    "driver_license_date": "2100-02-02",
+    "car_model": "Passat",
+    "car_brand": "Volkswagen",
+    "postal_code": "14000"
+  },
+  "invalid_age_over_100": {
+    "birthdate": "1900-01-01",
+    "driver_license_date": "2010-01-01",
+    "car_model": "E-Class",
+    "car_brand": "Mercedes-Benz",
+    "postal_code": "15000"
+  },
+  "invalid_postal_too_short": {
+    "birthdate": "1990-05-05",
+    "driver_license_date": "2010-06-01",
+    "car_model": "Rio",
+    "car_brand": "Kia",
+    "postal_code": "A1"
+  }
+}

@@ -34,12 +34,12 @@ COPY main.py ./main.py
 RUN mkdir -p /app/logs
 
 # Expose and healthcheck
-EXPOSE 8002
+EXPOSE 8003
 HEALTHCHECK --interval=30s --timeout=10s --start-period=20s --retries=3 \
-  CMD curl -f http://localhost:8002/health || exit 1
+  CMD curl -f http://localhost:8003/health || exit 1
 
 # Activate the Poetry venv on PATH so uvicorn is found
 ENV PATH="/app/.venv/bin:${PATH}"
 
 # Run the app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8002"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8003"]
